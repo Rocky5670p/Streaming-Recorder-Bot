@@ -18,7 +18,7 @@ class StopTransmission(Exception):
 
 API_ID = int(os.environ.get("API_ID", "29968148"))
 API_HASH = os.environ.get("API_HASH", "0dc95a4aa9b3514b9db31a4331bf630a")
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "8456919664:AAHij8u6pBZ_vtwEnVRYacz2FP8vg8b_1z0")
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "8947180081:AAF_LZszDdH6-ne_s5pcPd5fBFN1R9VT8Cc")
 PORT = int(os.environ.get("PORT", 8080))
 
 OWNER_ID = int(os.environ.get("OWNER_ID", "8788390728"))
@@ -31,7 +31,7 @@ REFERER = "https://www.zee5.com/"
 IST = pytz.timezone('Asia/Kolkata')
 
 app = Client(
-    "ZeeSarthak_Pro_Bot",
+    "M3u8_Recorder_Bot",
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=BOT_TOKEN,
@@ -150,7 +150,7 @@ def get_restricted_markup():
 async def execute_record_stream(client, chat_id, stream_url, total_sec, engine="FFmpeg"):
     duration_str = format_seconds(total_sec)
     task_id = str(int(time.time()))
-    output_file = f"ZeeSarthak_{task_id}.mp4"
+    output_file = f"M3u8_Rec_{task_id}.mp4"
 
     ACTIVE_TASKS[task_id] = {"cancelled": False, "proc": None, "file": output_file}
 
@@ -272,14 +272,14 @@ async def execute_record_stream(client, chat_id, stream_url, total_sec, engine="
         start_up = time.time()
 
         caption = (
-            "📺 **ZEE SARTHAK HD RECORDING**\n"
+            "📺 **M3U8 HD RECORDING**\n"
             "━━━━━━━━━━━━━━━━━━━━━\n"
             f"⏱️ **Duration:** `{duration_str}`\n"
             f"📦 **Size:** `{file_size_mb:.2f} MB`\n"
             f"⚙️ **Engine:** `{engine}`\n"
             f"⚡ **Sync:** `100% Matched`\n"
             "━━━━━━━━━━━━━━━━━━━━━\n"
-            "✨ *Recorded via Zee Sarthak Cloud Bot*"
+            "✨ *Recorded via M3u8 Recorder Bot*"
         )
 
         await client.send_video(
@@ -323,7 +323,7 @@ async def start_handler(client, message):
 
     user_engine = get_user_engine(user_id)
     text = (
-        "✨ **ZEE SARTHAK UHD CLOUD RECORDER** ✨\n"
+        "✨ **M3U8 RECORDER BOT** ✨\n"
         "━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
         "🤖 **Bot Status:** `Online & Operational 🟢`\n"
         f"⚙️ **Active Engine:** `{user_engine}`\n"
@@ -622,7 +622,7 @@ async def callback_router(client, query: CallbackQuery):
             "📖 **HOW TO USE RECORDER BOT**\n"
             "━━━━━━━━━━━━━━━━━━━━━\n\n"
             "1️⃣ **Instant Record:**\n"
-            "`/rec 00:02:00` (Records Zee Sarthak)\n\n"
+            "`/rec 00:02:00` (Records Default Stream)\n\n"
             "2️⃣ **Custom Link Record:**\n"
             "`/rec <URL> 00:05:00`\n\n"
             "3️⃣ **Schedule Recording:**\n"
@@ -642,7 +642,7 @@ async def callback_router(client, query: CallbackQuery):
     elif data == "back_start":
         user_engine = get_user_engine(user_id)
         text = (
-            "✨ **ZEE SARTHAK UHD CLOUD RECORDER** ✨\n"
+            "✨ **M3U8 RECORDER BOT** ✨\n"
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
             "🤖 **Bot Status:** `Online & Operational 🟢`\n"
             f"⚙️ **Active Engine:** `{user_engine}`\n"
@@ -663,7 +663,7 @@ async def callback_router(client, query: CallbackQuery):
         await query.message.edit_text(text, reply_markup=markup)
 
 async def web_root(request):
-    return web.Response(text="Zee Sarthak Recorder Bot is Live & Healthy 🚀")
+    return web.Response(text="M3u8 Recorder Bot is Live & Healthy 🚀")
 
 async def start_web_server():
     server = web.Application()

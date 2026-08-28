@@ -1,0 +1,8 @@
+pyrogram
+tgcrypto
+requests
+streamlink
+yt-dlp
+psutil
+pytz
+aiohttp

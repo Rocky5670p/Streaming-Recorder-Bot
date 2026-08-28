@@ -18,10 +18,11 @@ class StopTransmission(Exception):
 
 API_ID = int(os.environ.get("API_ID", "29968148"))
 API_HASH = os.environ.get("API_HASH", "0dc95a4aa9b3514b9db31a4331bf630a")
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "8947180081:AAF_LZszDdH6-ne_s5pcPd5fBFN1R9VT8Cc")
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "8456919664:AAHij8u6pBZ_vtwEnVRYacz2FP8vg8b_1z0")
 PORT = int(os.environ.get("PORT", 8080))
 
 OWNER_ID = int(os.environ.get("OWNER_ID", "8788390728"))
+OWNER_USERNAME = "RAVEN_JI"
 
 DEFAULT_STREAM = "https://shoebinfo.qzz.io/bgmi/zee5.php/0-9-sarthaktv.m3u8"
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
@@ -139,6 +140,11 @@ def get_settings_markup(user_id):
         [InlineKeyboardButton(btn_ffmpeg, callback_data="set_engine|FFmpeg")],
         [InlineKeyboardButton(btn_streamlink, callback_data="set_engine|Streamlink")],
         [InlineKeyboardButton("⬅️ Back to Menu", callback_data="back_start")]
+    ])
+
+def get_restricted_markup():
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("👑 Contact Owner (@RAVEN_JI)", url=f"https://t.me/{OWNER_USERNAME}")]
     ])
 
 async def execute_record_stream(client, chat_id, stream_url, total_sec, engine="FFmpeg"):
@@ -312,7 +318,7 @@ async def start_handler(client, message):
             "──────────────────────\n"
             "🔒 *Private Server Deployment*"
         )
-        await message.reply_text(access_denied_text)
+        await message.reply_text(access_denied_text, reply_markup=get_restricted_markup())
         return
 
     user_engine = get_user_engine(user_id)
@@ -391,7 +397,10 @@ async def unauthorize_user_cmd(client, message):
 async def settings_cmd(client, message):
     user_id = message.from_user.id
     if not is_authorized(user_id):
-        await message.reply_text("🚫 **Access Denied!** Pls Contact The Bot Owner.")
+        await message.reply_text(
+            "🚫 **Access Denied!** Pls Contact The Bot Owner.",
+            reply_markup=get_restricted_markup()
+        )
         return
 
     current = get_user_engine(user_id)
@@ -410,7 +419,10 @@ async def settings_cmd(client, message):
 async def record_cmd(client, message):
     user_id = message.from_user.id
     if not is_authorized(user_id):
-        await message.reply_text("🚫 **Access Denied!** Pls Contact The Bot Owner.")
+        await message.reply_text(
+            "🚫 **Access Denied!** Pls Contact The Bot Owner.",
+            reply_markup=get_restricted_markup()
+        )
         return
 
     args = message.command[1:]
@@ -435,7 +447,10 @@ async def record_cmd(client, message):
 async def schedule_cmd(client, message):
     user_id = message.from_user.id
     if not is_authorized(user_id):
-        await message.reply_text("🚫 **Access Denied!** Pls Contact The Bot Owner.")
+        await message.reply_text(
+            "🚫 **Access Denied!** Pls Contact The Bot Owner.",
+            reply_markup=get_restricted_markup()
+        )
         return
 
     args = message.command[1:]
